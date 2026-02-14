@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Happy Valentine's Day</title>
+
+<style>
+body {
+  margin: 0;
+  background: #ffe6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 320px;
+}
+
+.heart {
+  font-size: 60px;
+  animation: beat 1s infinite;
+  color: red;
+}
+
+@keyframes beat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+#typing {
+  font-size: 20px;
+  margin-top: 15px;
+  min-height: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Happy Valentine's Day Ladau ❤️</h1>
+  <div class="heart">❤</div>
+  <div id="typing"></div>
+</div>
+
+<!-- Typing animation -->
+<script>
+const text = "I love you so much Ladau... You are my happiness ❤️";
+let i = 0;
+
+function typingEffect() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typingEffect, 60);
+  }
+}
+
+typingEffect();
+</script>
+
+<!-- Background music (Tu Jaane Na) -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/P8PWN1OmZOA?autoplay=1&loop=1&playlist=P8PWN1OmZOA"
+frameborder="0" allow="autoplay">
+</iframe>
+
+</body>
+</html>
