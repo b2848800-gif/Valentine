@@ -2,79 +2,183 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Happy Valentine's Day</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laduaaaa / Cutie Pie ❤️</title>
 
 <style>
 body {
   margin: 0;
   background: #ffe6e6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   font-family: Arial, sans-serif;
-  text-align: center;
 }
 
-.card {
+.app {
+  max-width: 420px;
+  margin: auto;
   background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  width: 320px;
+  min-height: 100vh;
+}
+
+.header {
+  background: #ff4d6d;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.screen { display: none; padding: 20px; }
+.active { display: block; }
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #ff4d6d;
+  color: white;
+  margin: 5px;
+}
+
+/* Chat UI */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  padding: 10px;
+  border-radius: 12px;
+  max-width: 70%;
+}
+
+.me {
+  background: #ffccd5;
+  align-self: flex-end;
+}
+
+.her {
+  background: #eee;
+  align-self: flex-start;
+}
+
+/* Game */
+#gameArea {
+  position: relative;
+  height: 300px;
+  background: #fff0f5;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .heart {
-  font-size: 60px;
-  animation: beat 1s infinite;
-  color: red;
-}
-
-@keyframes beat {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.2); }
-  40% { transform: scale(1); }
-  60% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-#typing {
-  font-size: 20px;
-  margin-top: 15px;
-  min-height: 30px;
+  position: absolute;
+  cursor: pointer;
+  font-size: 24px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Happy Valentine's Day Ladau ❤️</h1>
-  <div class="heart">❤</div>
-  <div id="typing"></div>
+<div class="app">
+<div class="header">Love App ❤️</div>
+
+<!-- Screen 1 -->
+<div class="screen active" id="s1">
+  <h2>Hi Laduaaaa / Cutie Pie ❤️</h2>
+  <button onclick="next()">Start</button>
 </div>
 
-<!-- Typing animation -->
-<script>
-const text = "I love you so much Ladau... You are my happiness ❤️";
-let i = 0;
+<!-- Chat UI -->
+<div class="screen" id="s2">
+  <h3>Our Chat</h3>
+  <div class="chat">
+    <div class="msg me">Hi Laduaaaa / Cutie Pie</div>
+    <div class="msg her">Hello 🙂</div>
+    <div class="msg me">I love you</div>
+    <div class="msg her">I know 😄</div>
+    <div class="msg me">Will you be my Valentine?</div>
+  </div>
+  <button onclick="next()">Yes</button>
+</div>
 
-function typingEffect() {
-  if (i < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typingEffect, 60);
-  }
+<!-- Memory Quiz -->
+<div class="screen" id="s3">
+  <h3>Memory Quiz ❤️</h3>
+  <p>Where did we meet?</p>
+  <button onclick="wrong()">Instagram</button>
+  <button onclick="wrong()">School</button>
+  <button onclick="correct()">Somewhere special</button>
+</div>
+
+<!-- Mini Game -->
+<div class="screen" id="s4">
+  <h3>Catch the hearts ❤️</h3>
+  <p>Score: <span id="score">0</span></p>
+  <div id="gameArea"></div>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- Final -->
+<div class="screen" id="s5">
+  <h2>I love you Laduaaaa / Cutie Pie ❤️</h2>
+  <p id="days"></p>
+</div>
+
+</div>
+
+<script>
+let current = 1;
+
+function next() {
+  document.getElementById("s"+current).classList.remove("active");
+  current++;
+  document.getElementById("s"+current).classList.add("active");
+  counter();
 }
 
-typingEffect();
-</script>
+/* Quiz */
+function correct() {
+  alert("Correct ❤️");
+  next();
+}
 
-<!-- Background music (Tu Jaane Na) -->
-<iframe width="0" height="0"
-src="https://www.youtube.com/embed/P8PWN1OmZOA?autoplay=1&loop=1&playlist=P8PWN1OmZOA"
-frameborder="0" allow="autoplay">
-</iframe>
+function wrong() {
+  alert("Nooo 😄 Try again");
+}
+
+/* Love counter */
+function counter() {
+  const startDate = new Date("May 25, 2024");
+  const today = new Date();
+  const days = Math.floor((today - startDate)/(1000*60*60*24));
+  const el = document.getElementById("days");
+  if (el) el.innerText = "Together for " + days + " days ❤️";
+}
+
+/* Mini heart game */
+let score = 0;
+const area = document.getElementById("gameArea");
+
+setInterval(() => {
+  if (!area) return;
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random()*90 + "%";
+  heart.style.top = Math.random()*90 + "%";
+
+  heart.onclick = () => {
+    score++;
+    document.getElementById("score").innerText = score;
+    heart.remove();
+  };
+
+  area.appendChild(heart);
+  setTimeout(()=>heart.remove(),2000);
+}, 800);
+</script>
 
 </body>
 </html>
