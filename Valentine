@@ -50,16 +50,31 @@ button {
   padding: 10px;
   border-radius: 12px;
   max-width: 70%;
+  cursor: pointer;
+  position: relative;
 }
 
-.me {
-  background: #ffccd5;
-  align-self: flex-end;
+.me { background: #ffccd5; align-self: flex-end; }
+.her { background: #eee; align-self: flex-start; }
+
+/* emoji reaction */
+.reaction {
+  position: absolute;
+  right: -25px;
+  top: -10px;
+  font-size: 18px;
 }
 
-.her {
-  background: #eee;
-  align-self: flex-start;
+/* floating kiss */
+.kiss {
+  position: fixed;
+  font-size: 28px;
+  animation: kissUp 2s linear forwards;
+}
+
+@keyframes kissUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-200px); opacity: 0; }
 }
 
 /* Game */
@@ -93,13 +108,16 @@ button {
 <!-- Chat UI -->
 <div class="screen" id="s2">
   <h3>Our Chat</h3>
+
   <div class="chat">
-    <div class="msg me">Hi Laduaaaa / Cutie Pie</div>
-    <div class="msg her">Hello 🙂</div>
-    <div class="msg me">I love you</div>
-    <div class="msg her">I know 😄</div>
-    <div class="msg me">Will you be my Valentine?</div>
+    <div class="msg me" onclick="react(this)">Hi Laduaaaa / Cutie Pie</div>
+    <div class="msg her" onclick="react(this)">Hello 🙂</div>
+    <div class="msg me" onclick="react(this)">I love you</div>
+    <div class="msg her" onclick="react(this)">I know 😄</div>
+    <div class="msg me" onclick="react(this)">Will you be my Valentine?</div>
   </div>
+
+  <button onclick="sendKiss()">Send Kiss 😘</button>
   <button onclick="next()">Yes</button>
 </div>
 
@@ -136,6 +154,28 @@ function next() {
   current++;
   document.getElementById("s"+current).classList.add("active");
   counter();
+}
+
+/* Emoji reaction */
+function react(el) {
+  if (el.querySelector(".reaction")) return;
+  const r = document.createElement("span");
+  r.className = "reaction";
+  r.innerHTML = "❤️";
+  el.appendChild(r);
+}
+
+/* Kiss animation */
+function sendKiss() {
+  for (let i = 0; i < 6; i++) {
+    const kiss = document.createElement("div");
+    kiss.className = "kiss";
+    kiss.innerHTML = "😘";
+    kiss.style.left = Math.random()*90 + "vw";
+    kiss.style.bottom = "0px";
+    document.body.appendChild(kiss);
+    setTimeout(()=>kiss.remove(),2000);
+  }
 }
 
 /* Quiz */
