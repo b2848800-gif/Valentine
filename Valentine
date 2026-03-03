@@ -1,223 +1,200 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laduaaaa / Cutie Pie ❤️</title>
+    <title>Laduaa ❤️ The Blockbuster Love Story</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff4e50, #f9d423);
+            color: #333;
+        }
 
-<style>
-body {
-  margin: 0;
-  background: #ffe6e6;
-  font-family: Arial, sans-serif;
-}
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            max-width: 750px;
+            margin: 80px auto;
+            position: relative;
+            z-index: 2;
+        }
 
-.app {
-  max-width: 420px;
-  margin: auto;
-  background: white;
-  min-height: 100vh;
-}
+        h1 { color: #d62828; }
 
-.header {
-  background: #ff4d6d;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-weight: bold;
-}
+        .btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            border: none;
+            background: #d62828;
+            color: white;
+            font-size: 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.screen { display: none; padding: 20px; }
-.active { display: block; }
+        .btn:hover {
+            background: #9d0208;
+            transform: scale(1.05);
+        }
 
-button {
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  background: #ff4d6d;
-  color: white;
-  margin: 5px;
-}
+        .hidden { display: none; margin-top: 25px; font-weight: bold; font-size: 18px; }
 
-/* Chat UI */
-.chat {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+        #countdown {
+            font-size: 22px;
+            margin-top: 15px;
+            color: #d62828;
+            font-weight: bold;
+        }
 
-.msg {
-  padding: 10px;
-  border-radius: 12px;
-  max-width: 70%;
-  cursor: pointer;
-  position: relative;
-}
+        .heart {
+            position: absolute;
+            color: rgba(255,0,0,0.6);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+        }
 
-.me { background: #ffccd5; align-self: flex-end; }
-.her { background: #eee; align-self: flex-start; }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
 
-/* emoji reaction */
-.reaction {
-  position: absolute;
-  right: -25px;
-  top: -10px;
-  font-size: 18px;
-}
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-/* floating kiss */
-.kiss {
-  position: fixed;
-  font-size: 28px;
-  animation: kissUp 2s linear forwards;
-}
+        .proposal {
+            margin-top: 20px;
+            font-size: 22px;
+            color: #9d0208;
+        }
 
-@keyframes kissUp {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-200px); opacity: 0; }
-}
-
-/* Game */
-#gameArea {
-  position: relative;
-  height: 300px;
-  background: #fff0f5;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.heart {
-  position: absolute;
-  cursor: pointer;
-  font-size: 24px;
-}
-</style>
+    </style>
 </head>
-
 <body>
 
-<div class="app">
-<div class="header">Love App ❤️</div>
+<canvas id="fireworks"></canvas>
 
-<!-- Screen 1 -->
-<div class="screen active" id="s1">
-  <h2>Hi Laduaaaa / Cutie Pie ❤️</h2>
-  <button onclick="next()">Start</button>
-</div>
+<audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b6f03a0c7.mp3?filename=romantic-background-11259.mp3" type="audio/mpeg">
+</audio>
 
-<!-- Chat UI -->
-<div class="screen" id="s2">
-  <h3>Our Chat</h3>
+<div class="card">
+    <h1>Picture Abhi Baaki Hai, Laduaa ❤️</h1>
 
-  <div class="chat">
-    <div class="msg me" onclick="react(this)">Hi Laduaaaa / Cutie Pie</div>
-    <div class="msg her" onclick="react(this)">Hello 🙂</div>
-    <div class="msg me" onclick="react(this)">I love you</div>
-    <div class="msg her" onclick="react(this)">I know 😄</div>
-    <div class="msg me" onclick="react(this)">Will you be my Valentine?</div>
-  </div>
+    <p>
+        Laduaa…  
+        Flights cancel ho sakti hain.  
+        Buses drama kar sakti hain.  
+        Lekin meri feelings? Non-refundable. Non-cancellable.
+    </p>
 
-  <button onclick="sendKiss()">Send Kiss 😘</button>
-  <button onclick="next()">Yes</button>
-</div>
+    <button class="btn" onclick="showMessage()">Interval ke baad kya hota hai? 😌</button>
 
-<!-- Memory Quiz -->
-<div class="screen" id="s3">
-  <h3>Memory Quiz ❤️</h3>
-  <p>Where did we meet?</p>
-  <button onclick="wrong()">Instagram</button>
-  <button onclick="wrong()">School</button>
-  <button onclick="correct()">Somewhere special</button>
-</div>
+    <div id="message" class="hidden">
+        Hero heroine se milta hai.  
+        Baarish. Music. Slow motion.  
 
-<!-- Mini Game -->
-<div class="screen" id="s4">
-  <h3>Catch the hearts ❤️</h3>
-  <p>Score: <span id="score">0</span></p>
-  <div id="gameArea"></div>
-  <button onclick="next()">Next</button>
-</div>
+        <br><br>
+        ⏳ Countdown to Our Meeting:
+        <div id="countdown"></div>
 
-<!-- Final -->
-<div class="screen" id="s5">
-  <h2>I love you Laduaaaa / Cutie Pie ❤️</h2>
-  <p id="days"></p>
-</div>
-
+        <div id="proposal" class="proposal"></div>
+    </div>
 </div>
 
 <script>
-let current = 1;
-
-function next() {
-  document.getElementById("s"+current).classList.remove("active");
-  current++;
-  document.getElementById("s"+current).classList.add("active");
-  counter();
+function showMessage() {
+    document.getElementById("message").style.display = "block";
 }
 
-/* Emoji reaction */
-function react(el) {
-  if (el.querySelector(".reaction")) return;
-  const r = document.createElement("span");
-  r.className = "reaction";
-  r.innerHTML = "❤️";
-  el.appendChild(r);
+/* Floating Hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => { heart.remove(); }, 6000);
+}
+setInterval(createHeart, 500);
+
+/* Countdown - SET YOUR DATE */
+const meetingDate = new Date("April 15, 2026 10:00:00").getTime();
+
+const countdownFunction = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = meetingDate - now;
+
+    const days = Math.floor(distance / (1000*60*60*24));
+    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+
+    document.getElementById("countdown").innerHTML =
+        days + " Days " + hours + " Hours " + minutes + " Minutes";
+
+    if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("countdown").innerHTML = "We Finally Meet Today ❤️";
+        startFireworks();
+        showProposal();
+    }
+}, 1000);
+
+/* Proposal Message */
+function showProposal() {
+    document.getElementById("proposal").innerHTML =
+        "Laduaa ❤️<br><br>" +
+        "Agar itna drama survive kar liya…<br>" +
+        "toh poori zindagi saath survive kar sakte hain na?<br><br>" +
+        "Will you stay with me… through every cancelled flight,<br>" +
+        "every delay… and every happy ending? 💍";
 }
 
-/* Kiss animation */
-function sendKiss() {
-  for (let i = 0; i < 6; i++) {
-    const kiss = document.createElement("div");
-    kiss.className = "kiss";
-    kiss.innerHTML = "😘";
-    kiss.style.left = Math.random()*90 + "vw";
-    kiss.style.bottom = "0px";
-    document.body.appendChild(kiss);
-    setTimeout(()=>kiss.remove(),2000);
-  }
+/* Fireworks Animation */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+function startFireworks() {
+    setInterval(() => {
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: canvas.width/2,
+                y: canvas.height/2,
+                speedX: (Math.random() - 0.5) * 8,
+                speedY: (Math.random() - 0.5) * 8,
+                life: 100
+            });
+        }
+    }, 800);
+    animate();
 }
 
-/* Quiz */
-function correct() {
-  alert("Correct ❤️");
-  next();
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p, index) => {
+        ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,50%)";
+        ctx.fillRect(p.x, p.y, 4, 4);
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.life--;
+        if (p.life <= 0) particles.splice(index, 1);
+    });
 }
-
-function wrong() {
-  alert("Nooo 😄 Try again");
-}
-
-/* Love counter */
-function counter() {
-  const startDate = new Date("May 25, 2024");
-  const today = new Date();
-  const days = Math.floor((today - startDate)/(1000*60*60*24));
-  const el = document.getElementById("days");
-  if (el) el.innerText = "Together for " + days + " days ❤️";
-}
-
-/* Mini heart game */
-let score = 0;
-const area = document.getElementById("gameArea");
-
-setInterval(() => {
-  if (!area) return;
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random()*90 + "%";
-  heart.style.top = Math.random()*90 + "%";
-
-  heart.onclick = () => {
-    score++;
-    document.getElementById("score").innerText = score;
-    heart.remove();
-  };
-
-  area.appendChild(heart);
-  setTimeout(()=>heart.remove(),2000);
-}, 800);
 </script>
 
 </body>
