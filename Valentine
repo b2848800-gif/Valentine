@@ -128,7 +128,7 @@ function createHeart() {
 setInterval(createHeart, 500);
 
 /* Countdown - SET YOUR DATE */
-const meetingDate = new Date("April 15, 2026 10:00:00").getTime();
+const meetingDate = new Date("March 16, 2026 10:00:00").getTime();
 
 const countdownFunction = setInterval(function() {
     const now = new Date().getTime();
